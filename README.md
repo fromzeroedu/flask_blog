@@ -31,5 +31,5 @@ docker build -t flask-blog .
 
 Run the web container as (note for now you can only mount /Users folders):
 ```
-docker run -d -p 5000:5000 -v /Users/jorge/projects/flask-blog:/opt/flask-blog --name web --link db:mysql flask-blog
+docker run -d -p 5000:5000 -v /Users/jorge/projects/flask-blog:/opt/flask-blog --name blog --link db:mysql flask-blog
 ```
