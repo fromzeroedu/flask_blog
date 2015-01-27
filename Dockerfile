@@ -19,7 +19,7 @@ ADD . /opt/flask-blog
 WORKDIR /opt/flask-blog
 
 # Define default command.
-CMD ["python", "server.py"]
+CMD ["python", "manage.py", "runserver"]
 
 # Expose ports.
 EXPOSE 5000

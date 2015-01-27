@@ -1,2 +1,4 @@
-Flask
+flask
 flask-mysql
+flask-sqlalchemy
+flask-script
