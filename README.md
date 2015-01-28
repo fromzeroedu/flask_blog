@@ -14,6 +14,8 @@ We want to split the application in different components and group all the relat
 
 ### Add the database
 ```
+docker exec -it blog bash
+python
 import sqlalchemy
 engine = sqlalchemy.create_engine("mysql://root:test@mysql")
 conn = engine.connect()
@@ -30,8 +32,8 @@ python
 import os, sys
 sys.path.append(os.path.abspath(os.path.join('/opt/flask_blog', '..')))
 from flask_blog import db
-db.create_all()
 from author.models import Author
+db.create_all()
 author = Author('admin', 'admin@example.com')
 db.session.add(author)
 db.session.commit()
