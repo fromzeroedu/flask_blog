@@ -1,28 +1,43 @@
-## Step #0
+## Step #1
 
-### Create the initial folder setup
-1. Everything contained in the app folder.
-1. Added an ```__init__.py``` with Flask app
-1. Added a manage.py as entry point
+### Docker management
+1. Make sure to tail your logs via docker logs blog
+1. If you produce an error, the docker container will stop. Correct the error and then do ```docker start blog```
 
-### Start the main db:
+### Why an author module?
+We want to split the application in different components and group all the related functions and models in those folders.
+
+### Create the author module and database
+1. Add author init and views
+1. Add author model
+1. Add author.views to main ```__init__```
+
+### Add the database
 ```
-docker run --name db -e MYSQL_ROOT_PASSWORD=test -d -p 3306:3306 mariadb
+import sqlalchemy
+engine = sqlalchemy.create_engine("mysql://root:test@mysql")
+conn = engine.connect()
+conn.execute("commit")
+conn.execute("create database blog")
+conn.close()
+
 ```
 
-### Tie the web app with the db app
-
-Regenerate the container with the new requirements.txt (flask-mysql)
-
+### Test the database connection
 ```
-docker build -t flask-blog .
+docker exec -it blog bash
+python
+import os, sys
+sys.path.append(os.path.abspath(os.path.join('/opt/flask_blog', '..')))
+from flask_blog import db
+db.create_all()
+from author.models import Author
+author = Author('admin', 'admin@example.com')
+db.session.add(author)
+db.session.commit()
+author.id
+get_admin = Author.query.filter_by(username='admin').first()
+get_admin.id
+db.session.delete(author)
+db.session.commit()
 ```
-
-Run the web container as (note for now you can only mount /Users folders)
-NO MORE virtualenv:
-```
-docker run -d -p 5000:5000 -v /Users/jorge/flask-blog:/opt/flask-blog --name blog --link db:mysql flask-blog
-```
-
-### Check that it's running
-Go to your boot2docker ip:5000 and you should see a "Hello World!Â"
