@@ -2,13 +2,15 @@
 
 ### Add flask-wtf to requirements and rebuild
 ```
-docker exec -it blog bash
-pip install flask-wtf
+pip install -r requirements.txt
 ```
 
 ### Create an /author/register form with WTF Forms
 First add the route on the views (/author/register)
+
 Create the templates/author folder
+
+
 
 ### If table doesn't exist, add the database
 ```
