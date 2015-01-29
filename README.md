@@ -1,7 +1,8 @@
 ## Step #0
 
 ### Create the initial folder setup
-1. Everything contained in the app folder.
+1. Add a settings.py file with basic stuff
+1. Add requirements.txt
 1. Added an ```__init__.py``` with Flask app
 1. Added a manage.py as entry point
 
