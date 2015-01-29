@@ -4,7 +4,7 @@ from user.form import RegisterForm
 
 @app.route('/login')
 def login():
-    return "Hello, Author!"
+    return "Hello, User!"
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():

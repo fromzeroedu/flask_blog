@@ -7,7 +7,7 @@ pip install -r requirements.txt
 
 ### Initialize Database
 - Modify settings.py with separate credential variables
-- Create dbinit.py and run it
+- Create dbinit.py and run it -- remember to add new models and run it again!
 
 ### Setup jquery and Bootstrap
 Create a base.html and add Twitter bootstrap and jquery to static.
