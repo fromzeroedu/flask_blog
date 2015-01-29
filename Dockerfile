@@ -19,4 +19,4 @@ ADD . /opt/flask_blog
 WORKDIR /opt/flask_blog
 
 # Define default command.
-# CMD ["python", "manage.py", "runserver"]
+# CMD ["bash", "manage.py", "runserver"]

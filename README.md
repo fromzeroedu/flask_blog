@@ -21,7 +21,9 @@ docker build -t flask_blog .
 Run the web container as (note for now you can only mount /Users folders)
 NO MORE virtualenv:
 ```
-docker run -d -p 5000:5000 -v /Users/jorge/flask_blog:/opt/flask_blog --name blog --link db:mysql flask_blog
+docker run -id -p 5000:5000 -v /Users/jorge/flask_blog:/opt/flask_blog --name blog --link db:mysql flask_blog bash
+docker exec -it blog bash
+python manage.py runserver
 ```
 
 ### Check that it's running
