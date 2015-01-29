@@ -1,17 +1,19 @@
 from flask_blog import db
 
-class Author(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
     fullname = db.Column(db.String(80))
-    password = db.Column(db.String(30))
-    is_admin = db.Column(db.Boolean)
+    email = db.Column(db.String(35), unique=True)
+    username = db.Column(db.String(80), unique=True)
+    password = db.Column(db.String(80))
+    is_author = db.Column(db.Boolean)
 
-    def __init__(self, username, fullname, password, is_admin):
-        self.username = username
+    def __init__(self, fullname, email, username, password, is_author=False):
         self.fullname = fullname
+        self.email = email
+        self.username = username
         self.password = password
-        self.is_admin = is_admin
+        self.is_author = is_author
 
     def __repr__(self):
         return '<Author %r>' % self.username
