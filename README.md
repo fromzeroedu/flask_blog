@@ -5,6 +5,7 @@
 1. Add requirements.txt
 1. Added an ```__init__.py``` with Flask app
 1. Added a manage.py as entry point
+1. Added a home folder
 
 ### Start the main db:
 ```
