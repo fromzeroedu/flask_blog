@@ -9,17 +9,14 @@ FROM centos:7.0.1406
 # Build commands
 RUN yum install -y python-setuptools mysql-connector-python mysql-devel gcc python-devel
 RUN easy_install pip
-RUN mkdir /opt/flask-blog
-WORKDIR /opt/flask-blog
-ADD requirements.txt /opt/flask-blog/
+RUN mkdir /opt/flask_blog
+WORKDIR /opt/flask_blog
+ADD requirements.txt /opt/flask_blog/
 RUN pip install -r requirements.txt
-ADD . /opt/flask-blog
+ADD . /opt/flask_blog
 
 # Define working directory.
-WORKDIR /opt/flask-blog
+WORKDIR /opt/flask_blog
 
 # Define default command.
-CMD ["python", "manage.py", "runserver"]
-
-# Expose ports.
-EXPOSE 5000
+# CMD ["python", "manage.py", "runserver"]
