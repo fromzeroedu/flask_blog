@@ -5,42 +5,21 @@
 pip install -r requirements.txt
 ```
 
-### Create an /author/register form with WTF Forms
-First add the route on the views (/author/register)
+### Initialize Database
+Create dbinit.py and run it
 
-Create the templates/author folder
+### Create a /user/register form with WTF Forms
+First add the route on the views (/user/register).
 
+Create a base.html and add Twitter bootstrap and jquery to static.
+- Get https://github.com/twbs/bootstrap/releases/download/v3.3.2/bootstrap-3.3.2-dist.zip
+- Get http://jquery.com/download/
+- Move to static css, javascript
 
+Create the templates/user folder.
 
-### If table doesn't exist, add the database
-```
-docker exec -it blog bash
-python
-import sqlalchemy
-engine = sqlalchemy.create_engine("mysql://root:test@mysql")
-conn = engine.connect()
-conn.execute("commit")
-conn.execute("create database blog")
-conn.close()
+Create the _formhelpers.html
 
-```
+Create the register form.
 
-### Test the database connection
-```
-docker exec -it blog bash
-python
-import os, sys
-sys.path.append(os.path.abspath('/opt'))
-sys.path.append(os.path.abspath('/opt/flask_blog'))
-from flask_blog import db
-from author.models import Author
-db.create_all()
-author = Author('admin', 'admin@example.com')
-db.session.add(author)
-db.session.commit()
-author.id
-get_admin = Author.query.filter_by(username='admin').first()
-get_admin.id
-db.session.delete(author)
-db.session.commit()
-```
+Create the register view.
