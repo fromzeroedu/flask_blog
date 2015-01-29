@@ -6,7 +6,7 @@ from user.form import RegisterForm
 def login():
     return "Hello, Author!"
 
-@app.route('/user/register', methods=('GET', 'POST'))
+@app.route('/register', methods=('GET', 'POST'))
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
