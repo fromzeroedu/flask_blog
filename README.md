@@ -25,4 +25,4 @@ docker run -d -p 5000:5000 -v /Users/jorge/flask_blog:/opt/flask_blog --name blo
 ```
 
 ### Check that it's running
-Go to your boot2docker ip:5000 and you should see a "Hello World!Â"
+Go to your boot2docker ip:5000 and you should see a "Hello World!"
