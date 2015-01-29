@@ -3,7 +3,8 @@ from flask_blog import db
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
+    fullname = db.Column(db.String(80))
+    password = db.Column(db.String(30))
     is_admin = db.Column(db.Boolean)
 
     def __init__(self, username, email):
