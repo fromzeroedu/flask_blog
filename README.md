@@ -1,23 +1,9 @@
-## Step #2
+## Step #3
 
-### Initialize Database
-- Modify settings.py with separate credential variables
-- Create dbinit.py and run it -- remember to add new models and run it again!
+### Create the blog models.py
+- Create a blog table with the name and admin
+- Add blog.models and run dbinit
 
-### Setup jquery and Bootstrap
-Create a base.html and add Twitter bootstrap and jquery to static.
-- Get http://jquery.com/download/
-- Get https://github.com/twbs/bootstrap/releases/download/v3.3.2/bootstrap-3.3.2-dist.zip
-- Move to static css, javascript
-
-### Add flask-wtf to requirements and rebuild
-```
-pip install -r requirements.txt
-```
-
-### Create a /register form with WTF Forms
-- First add the route on the views (/user/register).
-- Create the templates/user folder.
-- Create the _formhelpers.html
-- Create the register form.
-- Create the register view.
+### Create the admin route and check if there's a blog
+- If not, present a form to create the blog and admin
+- Create a template/blog/admin.html and add a flashed message iterator
