@@ -1,5 +1,5 @@
 from flask_blog import app
-from flask import request, render_template
+from flask import render_template
 from user.form import RegisterForm
 
 @app.route('/login')
