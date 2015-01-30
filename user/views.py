@@ -2,4 +2,4 @@ from flask_blog import app
 
 @app.route('/login')
 def login():
-    return "Hello, Author!"
+    return "Hello, User!"
