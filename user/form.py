@@ -15,3 +15,13 @@ class RegisterForm(Form):
             validators.Length(min=4, max=80)
         ])
     confirm = PasswordField('Repeat Password')
+
+class LoginForm(Form):
+    username = StringField('Username', [
+            validators.Required(),
+            validators.Length(min=4, max=25)
+        ])
+    password = PasswordField('New Password', [
+            validators.Required(),
+            validators.Length(min=4, max=80)
+        ])
