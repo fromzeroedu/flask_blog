@@ -6,9 +6,7 @@ app = Flask(__name__)
 app.config.from_object('settings')
 db = SQLAlchemy(app)
 
-# list all models here
-from user.models import User
-from blog.models import Blog
+# migrations
 migrate = Migrate(app, db)
 
 from blog import views
