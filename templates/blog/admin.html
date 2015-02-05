@@ -22,6 +22,8 @@
     {% endif %}
     {% endwith %}
 
+    <p>
+        Welcome, {{ session['username'] }} - <a href="{{ url_for('logout') }}">logout</a>
   </div>
 
 </div>
