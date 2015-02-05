@@ -1,17 +1,13 @@
-## Step #4
+## Step #5
 
-### Implement a login function and logged in decorator
-- Create the login page
-  - Login form
-  - Login html
-  - login_success temporary page
-  - Add db check of credentials
-  - Add user to the session
-  - Add error message to login page
-
-- Create a login decorator
-  - Add user decorators.py
-  - Import user.decorators login_required to user and add to login_success
-  - Add next query param to session
-  - Add check if next session to redirect there
-  - Add login_required decorator to /admin
+### Handling migrations
+We want to store passwords more securely, but for that we need to change the database. To handle these changes we use a process called 'migrations'. Flask allows to do this using a module called flask-migrate.
+- Add flask-migrate to requirements.txt and install it
+- Add migrate commands to manage.py and __init__.py
+- Initialize using ```python manage.py db init```. This will add a migrations folder to your application.
+- You can then generate an initial migration:
+```python manage.py db migrate```
+- And then apply the changes to the database using:
+```python manage.py db upgrade```.
+- Each time the database models change repeat the migrate and upgrade commands
+- To sync the database in another system,. jut run the upgrade command.
