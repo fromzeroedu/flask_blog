@@ -53,3 +53,8 @@ def setup():
         flash('Blog created')
         return redirect('/admin')
     return render_template('blog/setup.html', form=form)
+
+@app.route('/post')
+@login_required
+def post():
+    return "Blog Post"
