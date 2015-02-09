@@ -1,5 +1,5 @@
 from flask_blog import app
-from flask import render_template, redirect, flash, url_for
+from flask import render_template, redirect, flash, url_for, session, abort
 from blog.form import SetupForm
 from flask_blog import db
 from user.models import User
@@ -18,7 +18,10 @@ def admin():
     blogs = Blog.query.count()
     if blogs == 0:
         return redirect(url_for('setup'))
-    return render_template('blog/admin.html')
+    if session.get('is_author'):
+        return render_template('blog/admin.html')
+    else:
+        abort(403)
 
 @app.route('/setup', methods=('GET', 'POST'))
 def setup():
