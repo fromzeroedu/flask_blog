@@ -10,4 +10,4 @@ We want to store passwords more securely, but for that we need to change the dat
 - And then apply the changes to the database using:
 ```python manage.py db upgrade```.
 - Each time the database models change repeat the migrate and upgrade commands
-- To sync the database in another system,. jut run the upgrade command.
+- To sync the database in another system, just run the upgrade command.
