@@ -6,6 +6,8 @@ class Blog(db.Model):
     name = db.Column(db.String(80))
     admin = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    posts = db.relationship('Post', backref='blog', lazy='dynamic')
+
     def __init__(self, name, admin):
         self.name = name
         self.admin = admin
@@ -15,8 +17,8 @@ class Blog(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    blog = db.Column(db.Integer, db.ForeignKey('blog.id'))
-    author = db.Column(db.Integer, db.ForeignKey('user.id'))
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(80))
     body = db.Column(db.Text)
     publish_date = db.Column(db.DateTime)
@@ -26,14 +28,14 @@ class Post(db.Model):
     category = db.relationship('Category',
         backref=db.backref('posts', lazy='dynamic'))
 
-    def __init__(self, blog, author, title, body, category, pub_date=None, live=True):
-            self.blog = blog
-            self.author = author
+    def __init__(self, blog, author, title, body, category, publish_date=None, live=True):
+            self.blog_id = blog.id
+            self.user_id = author.id
             self.title = title
             self.body = body
             self.category = category
-            if pub_date is None:
-                pub_date = datetime.utcnow()
+            if publish_date is None:
+                self.publish_date = datetime.utcnow()
             self.live = live
 
     def __repr__(self):

@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 495ae8a495b8
+Revision ID: a4c6606d74f
 Revises: 5728d994b096
-Create Date: 2015-02-09 23:08:22.817084
+Create Date: 2015-02-10 17:13:06.337762
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '495ae8a495b8'
+revision = 'a4c6606d74f'
 down_revision = '5728d994b096'
 
 from alembic import op
@@ -23,16 +23,16 @@ def upgrade():
     )
     op.create_table('post',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('blog', sa.Integer(), nullable=True),
-    sa.Column('author', sa.Integer(), nullable=True),
+    sa.Column('blog_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('title', sa.String(length=80), nullable=True),
     sa.Column('body', sa.Text(), nullable=True),
     sa.Column('publish_date', sa.DateTime(), nullable=True),
     sa.Column('live', sa.Boolean(), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['author'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['blog'], ['blog.id'], ),
+    sa.ForeignKeyConstraint(['blog_id'], ['blog.id'], ),
     sa.ForeignKeyConstraint(['category_id'], ['category.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.alter_column(u'user', 'is_author',
