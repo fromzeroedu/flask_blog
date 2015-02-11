@@ -23,7 +23,7 @@ class SetupForm(Form):
     confirm = PasswordField('Repeat Password')
 
 def categories():
-    return Category.query.all()
+    return Category.query
 
 class PostForm(Form):
     title = StringField('Title', [
