@@ -12,9 +12,8 @@
 
     {{ post.body|markdown }}
 
-    <div class="byline">
-      <p class="text-muted">Posted by {{ post.author.fullname }} on {{ post.publish_date.strftime('%Y-%m-%d') }}
-      </p>
+    <hr />
+    <div class="text-muted">Posted by <a href="#">{{ post.author.fullname }}</a> on {{ post.publish_date.strftime('%Y-%m-%d') }} in <a href="#">{{ post.category.name }}</a>
     </div>
 
   </div>
