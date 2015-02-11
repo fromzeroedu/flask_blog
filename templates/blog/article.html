@@ -12,6 +12,13 @@
 
     {{ post.body|markdown }}
 
+    <div class="byline">
+      <p class="text-muted">Posted by {{ post.author.fullname }} on {{ post.publish_date.strftime('%Y-%m-%d') }}
+      </p>
+    </div>
+
   </div>
+
+</div>
 
 {% endblock %}
