@@ -39,4 +39,5 @@ Let's delete the test records:
 ```
 Post.query.delete()
 Category.query.delete()
+db.session.commit()
 ```
