@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # markdown
-Markdown(app)
+md = Markdown(app, extensions=['fenced_code', 'tables'])
 
 from blog import views
 from user import views

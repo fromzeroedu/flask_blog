@@ -61,16 +61,22 @@ def post():
             new_category = Category(form.new_category.data)
             db.session.add(new_category)
             db.session.flush()
-            category = new_category.id
+            category = new_category
         else:
             category = form.category.data
+
         blog = Blog.query.first()
         author = User.query.filter_by(username=session['username']).first()
         title = form.title.data
-        body = form.title.data
+        body = form.body.data
         slug = slugify(title)
         post = Post(blog, author, title, body, category, slug)
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('article', slug=slug))
     return render_template('blog/post.html', form=form)
+
+@app.route('/article/<slug>')
+def article(slug):
+    post = Post.query.filter_by(slug=slug).first_or_404()
+    return render_template('blog/article.html', post=post)

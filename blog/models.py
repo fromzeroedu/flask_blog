@@ -29,12 +29,12 @@ class Post(db.Model):
     category = db.relationship('Category',
         backref=db.backref('posts', lazy='dynamic'))
 
-    def __init__(self, blog, author, title, body, category_id, slug=None, publish_date=None, live=True):
+    def __init__(self, blog, author, title, body, category, slug=None, publish_date=None, live=True):
             self.blog_id = blog.id
             self.user_id = author.id
             self.title = title
             self.body = body
-            self.category_id = category_id
+            self.category = category
             self.slug = slug
             if publish_date is None:
                 self.publish_date = datetime.utcnow()
