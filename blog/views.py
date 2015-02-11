@@ -61,13 +61,13 @@ def post():
             new_category = Category(form.new_category.data)
             db.session.add(new_category)
             db.session.flush()
-            category = new_category.id
+            category = new_category.
         else:
             category = form.category.data
         blog = Blog.query.first()
         author = User.query.filter_by(username=session['username']).first()
         title = form.title.data
-        body = form.title.data
+        body = form.title.body
         slug = slugify(title)
         post = Post(blog, author, title, body, category, slug)
         db.session.add(post)
