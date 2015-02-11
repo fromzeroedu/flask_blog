@@ -5,3 +5,4 @@ flask-script
 flask-wtf
 flask-migrate
 py-bcrypt
+flask-markdown

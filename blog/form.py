@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import validators, StringField, PasswordField
+from wtforms import validators, StringField, PasswordField, TextAreaField
 from wtforms.fields.html5 import EmailField
 
 class SetupForm(Form):
@@ -19,3 +19,10 @@ class SetupForm(Form):
             validators.Length(min=4, max=80)
         ])
     confirm = PasswordField('Repeat Password')
+
+class PostForm(Form):
+    title = StringField('Title', [
+            validators.Required(),
+            validators.Length(max=80)
+        ])
+    body = TextAreaField('Content', validators=[validators.Required()])

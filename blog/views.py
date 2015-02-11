@@ -1,10 +1,10 @@
 from flask_blog import app
-from flask import render_template, redirect, flash, url_for, session, abort
-from blog.form import SetupForm
+from flask import render_template, redirect, flash, url_for, session
+from blog.form import SetupForm, PostForm
 from flask_blog import db
 from user.models import User
 from blog.models import Blog
-from user.decorators import login_required
+from user.decorators import login_required, author_required
 import bcrypt
 
 @app.route('/')
@@ -13,18 +13,15 @@ def index():
     return "Hello, World!"
 
 @app.route('/admin')
-@login_required
+@author_required
 def admin():
-    blogs = Blog.query.count()
-    if blogs == 0:
-        return redirect(url_for('setup'))
-    if session.get('is_author'):
-        return render_template('blog/admin.html')
-    else:
-        abort(403)
+    return render_template('blog/admin.html')
 
 @app.route('/setup', methods=('GET', 'POST'))
 def setup():
+    blogs = Blog.query.count()
+    if blogs:
+        return redirect(url_for('admin'))
     form = SetupForm()
     if form.validate_on_submit():
         salt = bcrypt.gensalt()
@@ -54,7 +51,11 @@ def setup():
         return redirect('/admin')
     return render_template('blog/setup.html', form=form)
 
-@app.route('/post')
-@login_required
+@app.route('/post', methods=('GET', 'POST'))
+@author_required
 def post():
-    return "Blog Post"
+    form = PostForm()
+    if form.validate_on_submit():
+        blog = Blog.query.first()
+        author = User.query.get(session[''])
+    return render_template('blog/post.html', form=form)
