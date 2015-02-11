@@ -3,9 +3,10 @@ from flask import render_template, redirect, flash, url_for, session
 from blog.form import SetupForm, PostForm
 from flask_blog import db
 from user.models import User
-from blog.models import Blog
+from blog.models import Blog, Post, Category
 from user.decorators import login_required, author_required
 import bcrypt
+from slugify import slugify
 
 @app.route('/')
 @app.route('/index')
@@ -56,6 +57,15 @@ def setup():
 def post():
     form = PostForm()
     if form.validate_on_submit():
+        if form.new_category.data:
+            category = Category(form.new_category.data)
         blog = Blog.query.first()
-        author = User.query.get(session[''])
+        author = User.query.filter_by(username=session['username']).first()
+        title = form.title.data
+        body = form.title.data
+        category = form.category.data
+        slug = slugify(title)
+        post = Post(blog, author, title, body, category, slug)
+        db.session.add(post)
+        db.session.commit()
     return render_template('blog/post.html', form=form)
