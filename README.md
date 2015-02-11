@@ -16,6 +16,7 @@ python manage.py db upgrade
 
 ```
 python manage.py shell
+
 from user.models import *
 from blog.models import *
 
@@ -32,4 +33,10 @@ db.session.commit()
 category.posts.all()
 user.posts.all()
 blog.posts.all()
+```
+
+Let's delete the test records:
+```
+Post.query.delete()
+Category.query.delete()
 ```
