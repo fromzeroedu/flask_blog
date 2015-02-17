@@ -1,12 +1,13 @@
 from flask_blog import app
-from flask import render_template, redirect, flash, url_for, session
+from flask import render_template, redirect, flash, url_for, session, request
 from blog.form import SetupForm, PostForm
-from flask_blog import db
+from flask_blog import db, uploaded_images
 from user.models import User
 from blog.models import Blog, Post, Category
 from user.decorators import login_required, author_required
 import bcrypt
 from slugify import slugify
+from flaskext.uploads import UploadNotAllowed
 
 POSTS_PER_PAGE = 5
 
@@ -65,6 +66,13 @@ def setup():
 def post():
     form = PostForm()
     if form.validate_on_submit():
+        import pdb; pdb.set_trace()
+        image = request.files.get('image')
+        filename = None
+        try:
+            filename = uploaded_images.save(image)
+        except:
+            flash("The image was not uploaded")
         if form.new_category.data:
             new_category = Category(form.new_category.data)
             db.session.add(new_category)
@@ -78,7 +86,7 @@ def post():
         title = form.title.data
         body = form.body.data
         slug = slugify(title)
-        post = Post(blog, author, title, body, category, slug)
+        post = Post(blog, author, title, body, category, filename, slug)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('article', slug=slug))
