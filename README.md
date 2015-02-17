@@ -1,11 +1,7 @@
-## Step #11
+## Step #12
 
-### List articles on admin and home page
-- Get all posts in descending order in blog/views/admin
-- Add post title and href on templates/admin.html
-- Add a templates/blog/index.html
-- Add the index function to blog/views
-- Noticed an issue, need to pop is_author from session on user/views/logout
-- Add login_required decoraton on top of author_required on blog/views/admin
-- Add a footer with admin, login, logout on base.html
-- Take out login_success and redirect to index on user/views/login
+### Add pagination to admin and home page
+- Add pagination function on blog/views/admin and template
+- Add pagination function on blog/views/index and template
+- Add first few words to posts on blog/views/index
+- Add a hyperlink to index on Blog title

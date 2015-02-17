@@ -8,17 +8,23 @@
 
   <div class="col-md-offset-3 col-md-6">
 
-    <h1>{{ blog.name }}</h1>
+    <h1><a href="{{ url_for('index') }}">{{ blog.name }}</a></h1>
 
     <div class="post-list">
-      {% for post in posts %}
+      {% for post in posts.items %}
       <div class="post-item">
         <h4><a href="{{ url_for('article', slug=post.slug) }}">{{ post.title }}</a></h4>
+        <div class="post-body">{{ post.body[:220] }}</div>
         <div class="text-muted">Posted by <a href="#">{{ post.author.fullname }}</a> on {{ post.publish_date.strftime('%Y-%m-%d') }} in <a href="#">{{ post.category.name }}</a>
         </div>
         <hr />
       </div>
       {% endfor %}
+    </div>
+
+    <div class="post-paginate">
+      {% if posts.has_prev %}<a href="{{ url_for('index', page=posts.prev_num) }}">&lt;&lt; Newer posts</a>{% else %}&lt;&lt; Newer posts{% endif %} |
+      {% if posts.has_next %}<a href="{{ url_for('index', page=posts.next_num) }}">Older posts &gt;&gt;</a>{% else %}Older posts &gt;&gt;{% endif %}
     </div>
 
   </div>
