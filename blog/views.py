@@ -11,12 +11,16 @@ from slugify import slugify
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World!"
+    blog = Blog.query.first()
+    posts = Post.query.order_by(Post.publish_date.desc())
+    return render_template('blog/index.html', blog=blog, posts=posts)
 
 @app.route('/admin')
+@login_required
 @author_required
 def admin():
-    return render_template('blog/admin.html')
+    posts = Post.query.order_by(Post.publish_date.desc())
+    return render_template('blog/admin.html', posts=posts)
 
 @app.route('/setup', methods=('GET', 'POST'))
 def setup():

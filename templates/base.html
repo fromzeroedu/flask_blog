@@ -13,8 +13,19 @@
   <body>
 
     <div class="container">
+      {% block content %}{% endblock %}
 
-    {% block content %}{% endblock %}
+      <div class="col-md-offset-3 col-md-6">
+        <hr />
+        <footer>
+          Copyright 2014
+          {% if session.get('is_author') %} - <a href="{{ url_for('admin') }}">Admin</a>{% endif %}
+          {% if session.get('username') %} - <a href="{{ url_for('logout') }}">Logout</a>
+          {% else %} - <a href="{{ url_for('login') }}">Login</a>{% endif %}
+
+        </footer>
+      </div>
+
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

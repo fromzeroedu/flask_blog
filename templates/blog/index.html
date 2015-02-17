@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Blog Admin{% endblock %}
+{% block title %}{{ blog.name }}{% endblock %}
 
 {% block content %}
 
@@ -8,23 +8,7 @@
 
   <div class="col-md-offset-3 col-md-6">
 
-    <h3>Blog Admin</h3>
-
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div id="messages">
-      <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-    {% endwith %}
-
-    <p>
-        Welcome, {{ session['username'] }} - <a href="{{ url_for('logout') }}">logout</a>
-    </p>
+    <h1>{{ blog.name }}</h1>
 
     <div class="post-list">
       {% for post in posts %}
@@ -40,4 +24,5 @@
   </div>
 
 </div>
+
 {% endblock %}
