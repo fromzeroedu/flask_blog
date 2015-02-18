@@ -1,4 +1,4 @@
-from flask_blog import db
+from flask_blog import db, uploaded_images
 from datetime import datetime
 
 class Blog(db.Model):
@@ -29,6 +29,10 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category',
         backref=db.backref('posts', lazy='dynamic'))
+
+    @property
+    def imgsrc(self):
+        return uploaded_images.url(self.image)
 
     def __init__(self, blog, author, title, body, category, image=None, slug=None, publish_date=None, live=True):
             self.blog_id = blog.id

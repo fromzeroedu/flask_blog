@@ -10,29 +10,31 @@
 
     <h3>Blog Admin</h3>
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div id="messages">
-      <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-    {% endwith %}
+    {% include '_flashmessages.html' %}
 
     <p>
         Welcome, {{ session['username'] }} - <a href="{{ url_for('logout') }}">logout</a>
     </p>
 
+    <a href="{{ url_for('post') }}">
+      <button class="btn btn-success">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Blog Post
+      </button></a>
+
     <div class="post-list">
       {% for post in posts.items %}
-      <div class="post-item">
-        <h4><a href="{{ url_for('article', slug=post.slug) }}">{{ post.title }}</a></h4>
-        <div class="text-muted">Posted by <a href="#">{{ post.author.fullname }}</a> on {{ post.publish_date.strftime('%Y-%m-%d') }} in <a href="#">{{ post.category.name }}</a>
+      <div class="row post-item">
+        <div class="col-md-9">
+          <h4><a href="{{ url_for('article', slug=post.slug) }}">{{ post.title }}</a></h4>
+          <div class="post-body">{{ post.body[:220] }}</div>
+          <div class="text-muted">Posted by <a href="#">{{ post.author.fullname }}</a> on {{ post.publish_date.strftime('%Y-%m-%d') }} in <a href="#">{{ post.category.name }}</a>
+          </div>
         </div>
-        <hr />
+        <div class="col-md-3">
+          {% if post.image %}
+            <img src="{{ post.imgsrc }}" height="60px" class="img-rounded">
+          {% endif %}
+        </div>
       </div>
       {% endfor %}
     </div>
