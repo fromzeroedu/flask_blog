@@ -9,12 +9,16 @@
   <div class="col-md-offset-3 col-md-6">
 
     {% include '_flashmessages.html' %}
-    
+
     {% if post.image %}
     <img src="{{ post.imgsrc }}" height="300px" class="img-rounded" />
     {% endif %}
 
     <h3>{{ post.title }}</h3>
+    {% if session.get('is_author') %}
+      <a href="{{ url_for('edit', post_id=post.id) }}">Edit</a> -
+      <a href="{{ url_for('delete', post_id=post.id) }}">Delete</a>
+    {% endif %}
 
     {{ post.body|markdown }}
 

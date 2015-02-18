@@ -25,7 +25,7 @@
       {% for post in posts.items %}
       <div class="row post-item">
         <div class="col-md-9">
-          <h4><a href="{{ url_for('article', slug=post.slug) }}">{{ post.title }}</a></h4>
+          <h4><a href="{{ url_for('article', slug=post.slug) }}">{{ post.title }}</a> {% if not post.live %}(deleted){% endif %}</h4>
           <div class="post-body">{{ post.body[:220] }}</div>
           <div class="text-muted">Posted by <a href="#">{{ post.author.fullname }}</a> on {{ post.publish_date.strftime('%Y-%m-%d') }} in <a href="#">{{ post.category.name }}</a>
           </div>
