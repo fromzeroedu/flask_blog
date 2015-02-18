@@ -66,7 +66,6 @@ def setup():
 def post():
     form = PostForm()
     if form.validate_on_submit():
-        import pdb; pdb.set_trace()
         image = request.files.get('image')
         filename = None
         try:
