@@ -7,6 +7,7 @@ import sqlalchemy
 from flask.ext.sqlalchemy import SQLAlchemy
 
 from flask_blog import app, db
+
 # need to add all models for db.create_all to work
 from user.models import *
 from blog.models import *
@@ -34,11 +35,33 @@ class UserTest(unittest.TestCase):
         conn.execute("drop database "  + app.config['BLOG_DATABASE_NAME'])
         conn.close()
 
+    def create_blog(self):
+        return self.app.post('/setup', data=dict(
+            name='My Test Blog',
+            fullname='Jorge Escobar',
+            email='jorge@fromzero.io',
+            username='jorge',
+            password='test',
+            confirm='test'
+            ),
+        follow_redirects=True)
+
+    def login(self, username, password):
+        return self.app.post('/login', data=dict(
+            username=username,
+            password=password
+        ), follow_redirects=True)
+
     # Notice that our test functions begin with the word test;
     # this allows unittest to automatically identify the method as a test to run.
-    def test_empty_blog(self):
-        rv = self.app.get('/admin')
-        print rv.data
+    def test_create_blog(self):
+        rv = self.create_blog()
+        assert 'Blog created' in rv.data
+
+    def test_login_logout(self):
+        self.create_blog()
+        rv = self.login('jorge', 'test')
+        assert 'User logged in' in rv.data
 
 if __name__ == '__main__':
     unittest.main()
