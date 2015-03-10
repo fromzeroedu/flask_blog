@@ -1,4 +1,4 @@
-from flask_blog import app
+from flask_blog import app, db
 from flask import render_template, redirect, session, request, url_for, flash
 from user.form import RegisterForm, LoginForm
 from user.models import User
@@ -19,6 +19,7 @@ def login():
             ).first()
         if user:
             if bcrypt.hashpw(form.password.data, user.password) == user.password:
+                print "logging username %s" % form.username.data
                 session['username'] = user.username
                 session['is_author'] = user.is_author
                 flash("User logged in")
@@ -38,6 +39,17 @@ def login():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(form.password.data, salt)
+        user = User(
+            form.fullname.data,
+            form.email.data,
+            form.username.data,
+            hashed_password,
+            False
+        )
+        db.session.add(user)
+        db.session.commit()
         return redirect('/success')
     return render_template('user/register.html', form=form)
 
@@ -45,6 +57,7 @@ def register():
 def logout():
     session.pop('username')
     session.pop('is_author')
+    flash("User logged out")
     return redirect(url_for('index'))
 
 @app.route('/success')

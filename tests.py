@@ -52,6 +52,19 @@ class UserTest(unittest.TestCase):
             password=password
         ), follow_redirects=True)
 
+    def logout(self):
+        return self.app.get('/logout', follow_redirects=True)
+
+    def register_user(self, fullname, email, username, password, confirm):
+        return self.app.post('/register', data=dict(
+            fullname=fullname,
+            email=email,
+            username=username,
+            password=password,
+            confirm=confirm
+            ),
+        follow_redirects=True)
+
     # Notice that our test functions begin with the word test;
     # this allows unittest to automatically identify the method as a test to run.
     def test_create_blog(self):
@@ -62,6 +75,27 @@ class UserTest(unittest.TestCase):
         self.create_blog()
         rv = self.login('jorge', 'test')
         assert 'User logged in' in rv.data
+        rv = self.logout()
+        assert 'User logged out' in rv.data
+        rv = self.login('john', 'test')
+        assert 'User not found' in rv.data
+        rv = self.login('jorge', 'wrong')
+        assert 'Incorrect password' in rv.data
+
+    def test_admin(self):
+        self.create_blog()
+        self.login('jorge', 'test')
+        rv = self.app.get('/admin', follow_redirects=True)
+        assert 'Welcome, jorge' in rv.data
+        rv = self.logout()
+        rv = self.register_user('John Doe', 'john@example.com', 'john', 'test', 'test')
+        assert 'Author registered!' in rv.data
+        rv = self.login('john', 'test')
+        #print rv.data
+        rv = self.app.get('/admin', follow_redirects=True)
+        # print rv.data
+        #import pdb; pdb.set_trace()
+        pass
 
 if __name__ == '__main__':
     unittest.main()
