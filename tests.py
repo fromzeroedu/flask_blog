@@ -65,13 +65,12 @@ class UserTest(unittest.TestCase):
             ),
         follow_redirects=True)
 
-    def register_user(self, fullname, email, username, password, confirm):
-        return self.app.post('/register', data=dict(
-            fullname=fullname,
-            email=email,
-            username=username,
-            password=password,
-            confirm=confirm
+    def publish_post(self, title, body, category, ):
+        return self.app.post('/post', data=dict(
+            title=title,
+            body=body,
+            category=category,
+            new_category=new_category,
             ),
         follow_redirects=True)
 
