@@ -65,7 +65,7 @@ class UserTest(unittest.TestCase):
             ),
         follow_redirects=True)
 
-    def publish_post(self, title, body, category, ):
+    def publish_post(self, title, body, category, new_category):
         return self.app.post('/post', data=dict(
             title=title,
             body=body,
