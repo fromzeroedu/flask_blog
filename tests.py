@@ -65,6 +65,16 @@ class UserTest(unittest.TestCase):
             ),
         follow_redirects=True)
 
+    def register_user(self, fullname, email, username, password, confirm):
+        return self.app.post('/register', data=dict(
+            fullname=fullname,
+            email=email,
+            username=username,
+            password=password,
+            confirm=confirm
+            ),
+        follow_redirects=True)
+
     # Notice that our test functions begin with the word test;
     # this allows unittest to automatically identify the method as a test to run.
     def test_create_blog(self):
