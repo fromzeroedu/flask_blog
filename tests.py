@@ -74,7 +74,7 @@ class UserTest(unittest.TestCase):
     def test_login_logout(self):
         self.create_blog()
         rv = self.login('jorge', 'test')
-        assert 'User logged in' in rv.data
+        assert 'User jorge logged in' in rv.data
         rv = self.logout()
         assert 'User logged out' in rv.data
         rv = self.login('john', 'test')
@@ -91,11 +91,9 @@ class UserTest(unittest.TestCase):
         rv = self.register_user('John Doe', 'john@example.com', 'john', 'test', 'test')
         assert 'Author registered!' in rv.data
         rv = self.login('john', 'test')
-        #print rv.data
+        assert 'User john logged in' in rv.data
         rv = self.app.get('/admin', follow_redirects=True)
-        # print rv.data
-        #import pdb; pdb.set_trace()
-        pass
+        assert "403 Forbidden" in rv.data
 
 if __name__ == '__main__':
     unittest.main()

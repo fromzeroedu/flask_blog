@@ -19,10 +19,9 @@ def login():
             ).first()
         if user:
             if bcrypt.hashpw(form.password.data, user.password) == user.password:
-                print "logging username %s" % form.username.data
                 session['username'] = user.username
                 session['is_author'] = user.is_author
-                flash("User logged in")
+                flash("User %s logged in" % user.username)
                 if 'next' in session:
                     next = session.get('next')
                     session.pop('next')
