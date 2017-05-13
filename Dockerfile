@@ -7,6 +7,8 @@
 FROM centos:7.0.1406
 
 # Build commands
+RUN yum swap -y fakesystemd systemd && \
+    yum install -y systemd-devel
 RUN yum install -y python-setuptools mysql-connector-python mysql-devel gcc python-devel git
 RUN easy_install pip
 RUN mkdir /opt/flask_blog
